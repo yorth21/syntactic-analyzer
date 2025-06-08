@@ -1,111 +1,92 @@
-# Evaluador de Expresiones Lógico-Aritméticas
+# 🧠 Analizador de Expresiones Lógico-Aritméticas
 
-Este proyecto implementa un **analizador sintáctico recursivo descendente** en Java, capaz de interpretar y evaluar expresiones que combinan operaciones aritméticas, relacionales y lógicas.
+Este proyecto implementa dos tipos de analizadores sintácticos en Java que permiten interpretar y evaluar expresiones que combinan operaciones aritméticas, relacionales y lógicas.
 
-## 🚀 ¿Qué hace este programa?
+---
 
-Permite ingresar expresiones como:
+## ✨ ¿Qué incluye el proyecto?
+
+🔹 **Analizador Recursivo Descendente:**  
+Interpreta expresiones lógico-aritméticas completas como:
 
 ```
 (10 + 5) > 12 & 3 < 8 | 4 == 4
 ```
 
-Y responde con:
+🔹 **Analizador con Pila (No Recursivo):**  
+Evalúa expresiones aritméticas y genera:
 
-- ✅ Si la expresión es válida
-- 🧮 El resultado (puede ser un número o un valor lógico como `true` o `false`)
-
----
-
-## 🧠 ¿Qué tipos de operaciones soporta?
-
-### ✔️ Aritméticas
-- Suma: `+`
-- Resta: `-`
-- Multiplicación: `*`
-- División: `/`
-- Potencias: `^`
-
-### ✔️ Relacionales
-- Menor que: `<`
-- Mayor que: `>`
-- Menor o igual: `<=`
-- Mayor o igual: `>=`
-- Igual a: `==`
-- Diferente de: `!=`
-
-### ✔️ Lógicas
-- Y lógico: `&` o `AND`
-- O lógico: `|` o `OR`
-- Negación lógica: `¬` o `NOT`
+- Resultado
+- Notación infija
+- Notación postfija
+- Notación prefija
 
 ---
 
-## 📥 ¿Cómo usarlo?
+## 🛠️ ¿Cómo usarlo?
 
 ### 1. Clona el repositorio
 
 ```bash
 git clone https://github.com/yorth21/syntactic-analyzer.git
-cd tu-repo
+cd syntactic-analyzer
 ```
 
 ### 2. Compílalo
 
-Usa cualquier IDE (como IntelliJ o VS Code) o desde consola:
-
 ```bash
-javac *.java
+javac com/yorth21/**/*.java
 ```
 
 ### 3. Ejecútalo
 
 ```bash
-java Main
-```
-
-### 4. Interactúa
-
-Escribe expresiones como estas:
-
-```
-5 + 10 * 2
-(5 > 3) & (2 < 4)
-10 == 10 | 20 != 5
-```
-
-Para salir, escribe:
-
-```
-salir
+java com.yorth21.Main
 ```
 
 ---
 
-## 👨‍💻 ¿Qué tecnologías se usaron?
+## 📋 Menú de opciones
 
-- Java puro (sin librerías externas)
-- Programación estructurada con orientación a objetos
-- Técnicas de análisis sintáctico descendente (gramáticas LL(1))
+Cuando ejecutes el programa, verás el siguiente menú interactivo:
+
+```
+=== Analizador de Expresiones ===
+1. Analizador Recursivo
+2. Analizador con Pila
+3. Salir
+```
+
+🔹 Escribe una expresión y presiona Enter.  
+🔹 El sistema mostrará el resultado o los errores correspondientes.  
+🔹 Puedes escribir expresiones múltiples hasta elegir "Salir".
 
 ---
 
-## 📂 Estructura del proyecto
+## 📂 Documentación por Analizador
 
-- `Lexer.java`: separa la entrada en tokens
-- `Parser.java`: analiza y evalúa la expresión
-- `Token` y `TokenType`: representan los tipos y contenidos de tokens
-- `NoTerminal`: clase usada para transportar valores parciales (números o lógicos)
-- `Main.java`: interfaz simple por consola
+- 🔎 [Ver detalles del Analizador Recursivo](README-recursive.md)
+- ⚙️ [Ver detalles del Analizador con Pila](README-pila.md)
+
+---
+
+## 🧪 Requisitos y Tecnologías
+
+- Java 11+
+- No usa librerías externas
+- Estructurado por paquetes:
+    - `recursive` para el parser recursivo
+    - `pila` para el parser con pila
+    - `shared` para componentes comunes (Lexer, Token, etc.)
 
 ---
 
 ## 📝 Créditos
 
-Desarrollado por **Yorth** como parte de ejercicios académicos para la materia de **Lenguajes Formales y Autómatas**.
+Desarrollado por **Yorth** como parte de prácticas académicas en la asignatura de **Lenguajes Formales y Autómatas**.
 
 ---
 
-## 📃 Licencia
+## 🪪 Licencia
 
-Este proyecto es de uso libre para fines académicos y educativos. Se prohíbe su venta o comercialización sin permiso del autor.
+Este proyecto es de uso educativo. Puedes modificarlo, mejorarlo y compartirlo libremente, siempre con fines no comerciales.
