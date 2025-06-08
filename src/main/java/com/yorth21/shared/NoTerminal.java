@@ -1,4 +1,4 @@
-package com.yorth21;
+package com.yorth21.shared;
 
 public class NoTerminal {
     private double valorNumerico;     // Resultado numérico si aplica

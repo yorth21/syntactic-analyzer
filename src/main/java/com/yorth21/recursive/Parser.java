@@ -1,4 +1,9 @@
-package com.yorth21;
+package com.yorth21.recursive;
+
+import com.yorth21.shared.Lexer;
+import com.yorth21.shared.NoTerminal;
+import com.yorth21.shared.Token;
+import com.yorth21.shared.TokenType;
 
 public class Parser {
     private final Lexer lexer;
