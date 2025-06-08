@@ -1,5 +1,9 @@
 # 🧠 Analizador de Expresiones Lógico-Aritméticas
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java Version](https://img.shields.io/badge/Java-11+-orange.svg)](https://www.oracle.com/java/)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
+
 Este proyecto implementa dos tipos de analizadores sintácticos en Java que permiten interpretar y evaluar expresiones que combinan operaciones aritméticas, relacionales y lógicas.
 
 ---
