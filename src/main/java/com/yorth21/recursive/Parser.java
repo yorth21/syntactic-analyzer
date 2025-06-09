@@ -39,20 +39,9 @@ public class Parser {
     }
 
     private NoTerminal ELO() {
-        if (currentToken.getType() == TokenType.NOT) {
-            eat(TokenType.NOT);
-            NoTerminal operando = ELO();  // Aplica NOT a toda la lógica que viene
-
-            if (!operando.esRelacional()) {
-                throw new RuntimeException("Error semántico: NOT solo puede aplicarse sobre expresiones relacionales.");
-            }
-
-            boolean resultado = !operando.getValorLogico();
-            return NoTerminal.conValorLogico(resultado, true);
-        }
-
-        NoTerminal izquierdo = EL2(); // Primero ANDs
-        return ELO_L(izquierdo);      // Luego ORs si los hay
+        // <ELO> → <EL2> <ELO_L>
+        NoTerminal izquierdo = EL2(); // primero evaluamos la parte izquierda
+        return ELO_L(izquierdo);   // Luego ORs si los hay
     }
 
     private NoTerminal ELO_L(NoTerminal izquierdo) {
@@ -102,9 +91,59 @@ public class Parser {
     }
 
     private NoTerminal ER() {
-        NoTerminal izquierdo = E();         // expresión aritmética (puede ser número)
-        return ER_L(izquierdo);             // si hay operador relacional, lo evaluamos
+        // ER → NOT? REL
+        boolean negar = false;
+
+        if (currentToken.getType() == TokenType.NOT) {
+            eat(TokenType.NOT);
+            negar = true;
+        }
+
+        NoTerminal resultado = REL();
+
+        if (negar) {
+            if (!resultado.esRelacional()) {
+                throw new RuntimeException("Error semántico: NOT solo puede aplicarse sobre expresiones relacionales.");
+            }
+            boolean negado = !resultado.getValorLogico();
+            return NoTerminal.conValorLogico(negado, true);
+        }
+
+        return resultado;
     }
+
+
+    private NoTerminal REL() {
+        NoTerminal izquierdo = E();
+
+        TokenType tipo = currentToken.getType();
+        if (tipo == TokenType.LESS_THAN || tipo == TokenType.LESS_EQUAL ||
+                tipo == TokenType.GREATER_THAN || tipo == TokenType.GREATER_EQUAL ||
+                tipo == TokenType.EQUAL_EQUAL || tipo == TokenType.NOT_EQUAL) {
+
+            eat(tipo);
+            NoTerminal derecho = E();
+
+            double a = izquierdo.getValorNumerico();
+            double b = derecho.getValorNumerico();
+
+            boolean resultado = switch (tipo) {
+                case LESS_THAN -> a < b;
+                case LESS_EQUAL -> a <= b;
+                case GREATER_THAN -> a > b;
+                case GREATER_EQUAL -> a >= b;
+                case EQUAL_EQUAL -> a == b;
+                case NOT_EQUAL -> a != b;
+                default -> throw new RuntimeException("Operador relacional inválido");
+            };
+
+            return NoTerminal.conValorLogico(resultado, true);
+        }
+
+        // Si no hay operador relacional, devolvemos la expresión tal cual
+        return izquierdo;
+    }
+
 
     private NoTerminal ER_L(NoTerminal izquierdo) {
         TokenType tipo = currentToken.getType();
