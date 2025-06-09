@@ -1,9 +1,9 @@
-package com.yorth21.recursive;
+package com.guiller.recursive;
 
-import com.yorth21.shared.Lexer;
-import com.yorth21.shared.NoTerminal;
-import com.yorth21.shared.Token;
-import com.yorth21.shared.TokenType;
+import com.guiller.shared.Lexer;
+import com.guiller.shared.NoTerminal;
+import com.guiller.shared.Token;
+import com.guiller.shared.TokenType;
 
 public class Parser {
     private final Lexer lexer;
@@ -110,16 +110,15 @@ public class Parser {
             double a = izquierdo.getValorNumerico();
             double b = derecho.getValorNumerico();
 
-            boolean resultado;
-            switch (operador) {
-                case LESS_THAN:        resultado = a < b; break;
-                case LESS_EQUAL:       resultado = a <= b; break;
-                case GREATER_THAN:     resultado = a > b; break;
-                case GREATER_EQUAL:    resultado = a >= b; break;
-                case EQUAL_EQUAL:      resultado = a == b; break;
-                case NOT_EQUAL:        resultado = a != b; break;
-                default: throw new RuntimeException("Operador relacional inválido");
-            }
+            boolean resultado = switch (operador) {
+                case LESS_THAN -> a < b;
+                case LESS_EQUAL -> a <= b;
+                case GREATER_THAN -> a > b;
+                case GREATER_EQUAL -> a >= b;
+                case EQUAL_EQUAL -> a == b;
+                case NOT_EQUAL -> a != b;
+                default -> throw new RuntimeException("Operador relacional inválido");
+            };
 
             return NoTerminal.conValorLogico(resultado, true); // ← relacional = true
         }

@@ -1,4 +1,4 @@
-package com.yorth21.pila;
+package com.guiller.pila;
 
 public class ResultadoParcial {
     private double valor;

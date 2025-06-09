@@ -1,4 +1,4 @@
-package com.yorth21.shared;
+package com.guiller.shared;
 
 public enum TipoSimbolo {
     TERMINAL,

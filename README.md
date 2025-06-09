@@ -45,7 +45,7 @@ javac com/yorth21/**/*.java
 ### 3. Ejecútalo
 
 ```bash
-java com.yorth21.Main
+java com.guiller.Main
 ```
 
 ---
