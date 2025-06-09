@@ -39,9 +39,20 @@ public class Parser {
     }
 
     private NoTerminal ELO() {
-        // <ELO> → <EL2> <ELO_L>
-        NoTerminal izquierdo = EL2(); // primero evaluamos la parte izquierda
-        return ELO_L(izquierdo);      // luego evaluamos si hay más ORs
+        if (currentToken.getType() == TokenType.NOT) {
+            eat(TokenType.NOT);
+            NoTerminal operando = ELO();  // Aplica NOT a toda la lógica que viene
+
+            if (!operando.esRelacional()) {
+                throw new RuntimeException("Error semántico: NOT solo puede aplicarse sobre expresiones relacionales.");
+            }
+
+            boolean resultado = !operando.getValorLogico();
+            return NoTerminal.conValorLogico(resultado, true);
+        }
+
+        NoTerminal izquierdo = EL2(); // Primero ANDs
+        return ELO_L(izquierdo);      // Luego ORs si los hay
     }
 
     private NoTerminal ELO_L(NoTerminal izquierdo) {
@@ -223,7 +234,7 @@ public class Parser {
 
         if (tipo == TokenType.LPAREN) {
             eat(TokenType.LPAREN);
-            NoTerminal resultado = ELO(); // Aquí puede venir cualquier expresión
+            NoTerminal resultado = ELO(); // puede venir cualquier expresión dentro de paréntesis
             eat(TokenType.RPAREN);
             return resultado;
         }
@@ -240,6 +251,6 @@ public class Parser {
             }
         }
 
-        throw new RuntimeException("Error sintáctico: se esperaba número o paréntesis, pero se encontró " + currentToken.getLexeme());
+        throw new RuntimeException("Error sintáctico: se esperaba número, paréntesis o NOT, pero se encontró " + currentToken.getLexeme());
     }
 }
